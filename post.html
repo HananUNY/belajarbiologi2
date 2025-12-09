@@ -41,7 +41,13 @@
                 const post = blogPosts.find(p => p.id === postId);
 
                 if (post) {
+                    // Update Title & Meta
                     document.title = `${post.title} | Guru Biologi Profesional`;
+                    document.querySelector('meta[name="description"]').setAttribute("content", post.content.substring(0, 150));
+                    document.querySelector('meta[property="og:title"]').setAttribute("content", post.title);
+                    document.querySelector('meta[property="og:description"]').setAttribute("content", post.content.substring(0, 150));
+                    document.querySelector('link[rel="canonical"]').setAttribute("href", window.location.href);
+
                     container.innerHTML = `
                         <div style="margin-bottom: 20px;">
                             <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase;">${post.category}</span>
