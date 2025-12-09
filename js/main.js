@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    loadComponent("header", "/navbar.html");
-    loadComponent("footer", "/footer.html");
+    loadComponent("navbar", "navbar.html");
+    loadComponent("footer", "footer.html");
 });
 
 async function loadComponent(elementId, filePath) {
@@ -9,9 +9,9 @@ async function loadComponent(elementId, filePath) {
         if (response.ok) {
             const content = await response.text();
             document.getElementById(`${elementId}-placeholder`).innerHTML = content;
-            
+
             // Highlight active link
-            if(elementId === 'header') {
+            if (elementId === 'navbar') {
                 setActiveLink();
             }
         } else {
@@ -25,7 +25,7 @@ async function loadComponent(elementId, filePath) {
 function setActiveLink() {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('nav a');
-    
+
     navLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath || (currentPath === '/' && link.getAttribute('href') === '/index.html')) {
             link.classList.add('active');
