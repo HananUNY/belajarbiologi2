@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran | Guru Biologi Profesional</title>
+    <meta name="description"
+        content="Koleksi media pembelajaran biologi: Infografis, Video, dan Alat Peraga Fisik buatan sendiri.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <main class="container">
+        <section>
+            <h1>Media Pembelajaran</h1>
+            <p style="color: var(--secondary-color);">Inspirasi dan kreativitas dalam memvisualisasikan konsep Biologi.
+            </p>
+        </section>
+
+        <!-- Filter Buttons -->
+        <div style="margin-bottom: 30px; display: flex; gap: 15px;">
+            <button class="btn" onclick="filterMedia('all')" style="background-color: var(--text-color);">Semua</button>
+            <button class="btn" onclick="filterMedia('visual')" style="background-color: #e9ecef; color: #333;">Visual &
+                Poster</button>
+            <button class="btn" onclick="filterMedia('digital')" style="background-color: #e9ecef; color: #333;">Digital
+                & Video</button>
+            <button class="btn" onclick="filterMedia('fisik')" style="background-color: #e9ecef; color: #333;">Alat
+                Peraga Fisik</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="media-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
+
+            <!-- Item 1: Visual -->
+            <div class="media-item" data-category="visual"
+                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;">
+                <img src="https://via.placeholder.com/400x300" alt="Poster Siklus Krebs"
+                    style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <span
+                        style="font-size: 0.8rem; background: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 4px;">Visual</span>
+                    <h3 style="margin: 10px 0; font-size: 1.2rem;">Infografis Siklus Krebs</h3>
+                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Penyederhanaan tahapan respirasi aerob
+                        untuk kelas XII.</p>
+                </div>
+            </div>
+
+            <!-- Item 2: Digital -->
+            <div class="media-item" data-category="digital"
+                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;">
+                <div
+                    style="width: 100%; height: 200px; background: #000; display: flex; align-items: center; justify-content: center; color: white;">
+                    Video Thumbnail</div>
+                <div style="padding: 20px;">
+                    <span
+                        style="font-size: 0.8rem; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 4px;">Digital</span>
+                    <h3 style="margin: 10px 0; font-size: 1.2rem;">Video Pembelahan Sel</h3>
+                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Animasi mitosis dan meiosis dengan
+                        dubbing penjelasan.</p>
+                </div>
+            </div>
+
+            <!-- Item 3: Fisik -->
+            <div class="media-item" data-category="fisik"
+                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;">
+                <img src="https://via.placeholder.com/400x300" alt="Model DNA"
+                    style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <span
+                        style="font-size: 0.8rem; background: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 4px;">Fisik</span>
+                    <h3 style="margin: 10px 0; font-size: 1.2rem;">Model DNA Barang Bekas</h3>
+                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Alat peraga double helix dari sedotan
+                        dan kawat.</p>
+                    <a href="#"
+                        style="font-size: 0.9rem; text-decoration: underline; color: var(--primary-color);">Lihat Cara
+                        Penggunaan</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="js/main.js"></script>
+    <script>
+        function filterMedia(category) {
+            const items = document.querySelectorAll('.media-item');
+            const buttons = document.querySelectorAll('.filter-btn'); // Note: I didn't add class filter-btn to buttons above yet.
+
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Basic styles update for buttons could go here
+        }
+    </script>
+</body>
+
+</html>

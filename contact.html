@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak | Guru Biologi Profesional</title>
+    <meta name="description"
+        content="Hubungi saya untuk kolaborasi riset, undangan seminar, atau pertanyaan seputar materi biologi.">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <main class="container">
+        <section style="max-width: 600px; margin: 0 auto;">
+            <h1 style="text-align: center;">Hubungi Saya</h1>
+            <p style="text-align: center; color: var(--secondary-color); margin-bottom: 40px;">
+                Silakan tinggalkan pesan untuk pertanyaan, diskusi, atau tawaran kolaborasi.
+            </p>
+
+            <form style="display: grid; gap: 20px;">
+                <div>
+                    <label for="name" style="display: block; margin-bottom: 5px; font-weight: 500;">Nama Lengkap</label>
+                    <input type="text" id="name"
+                        style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-family: inherit;">
+                </div>
+                <div>
+                    <label for="email" style="display: block; margin-bottom: 5px; font-weight: 500;">Email</label>
+                    <input type="email" id="email"
+                        style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-family: inherit;">
+                </div>
+                <div>
+                    <label for="subject" style="display: block; margin-bottom: 5px; font-weight: 500;">Subjek</label>
+                    <select id="subject"
+                        style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-family: inherit; background: white;">
+                        <option>Pertanyaan Materi</option>
+                        <option>Undangan / Kolaborasi</option>
+                        <option>Lainnya</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="message" style="display: block; margin-bottom: 5px; font-weight: 500;">Pesan</label>
+                    <textarea id="message" rows="5"
+                        style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-family: inherit;"></textarea>
+                </div>
+                <button type="submit" class="btn"
+                    style="width: 100%; border: none; font-size: 1rem; cursor: pointer;">Kirim Pesan</button>
+            </form>
+
+            <div
+                style="margin-top: 50px; display: flex; justify-content: center; gap: 30px; border-top: 1px solid var(--border-color); padding-top: 30px;">
+                <a href="#" style="text-align: center;">
+                    <i class="fab fa-linkedin fa-2x" style="color: #0077b5;"></i>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">LinkedIn</div>
+                </a>
+                <a href="#" style="text-align: center;">
+                    <i class="fab fa-google fa-2x" style="color: #333;"></i>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">Scholar</div>
+                </a>
+                <a href="#" style="text-align: center;">
+                    <i class="fab fa-instagram fa-2x" style="color: #e4405f;"></i>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">Instagram</div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

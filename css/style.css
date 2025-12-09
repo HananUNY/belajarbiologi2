@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Colors - Al-Folio Inspired (Clean, Academic, Soft) */
+    --bg-color: #ffffff;
+    --text-color: #2b2b2b;
+    --primary-color: #007bff; /* Standard Al-folio blue, can be adjusted */
+    --secondary-color: #6c757d;
+    --accent-color: #00bfa5; /* Teal for biology accent */
+    --light-gray: #f8f9fa;
+    --border-color: #e9ecef;
+    
+    /* Typography */
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Spacing */
+    --container-width: 900px; /* Standard Portfolio Width */
+    --header-height: 70px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* Container */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Section Styling */
+section {
+    padding: 60px 0;
+    margin-bottom: 20px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+h3 { font-size: 1.5rem; }
+
+/* Utilities */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.btn:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+/* Navbar Placeholder */
+#navbar-placeholder {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+}
+
+/* Footer Placeholder */
+#footer-placeholder {
+    margin-top: 50px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
