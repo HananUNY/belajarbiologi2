@@ -1,9 +1,24 @@
+// Theme Management
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+function toggleTheme(isChecked) {
+    const newTheme = isChecked ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+}
+
+// Initialize theme attribute immediately to prevent flash
+initTheme();
+
 const navbarContent = `
 <nav class="container" style="display: flex; justify-content: space-between; align-items: center; height: var(--header-height);">
     <a href="index.html" style="font-size: 1.5rem; font-weight: 800; color: #333;">
         Belajar<span style="color: var(--primary-color);">Biologi</span>
     </a>
-    <div style="display: flex; gap: 25px; font-weight: 500;">
+    <div style="display: flex; gap: 25px; font-weight: 500; align-items: center;">
         <a href="index.html">Beranda</a>
         <a href="about.html">Tentang Saya</a>
         <a href="media.html">Media</a>
@@ -11,6 +26,15 @@ const navbarContent = `
         <a href="publications.html">Publikasi</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Kontak</a>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" onchange="toggleTheme(this.checked)" />
+                <div class="slider">
+                    <i class="fas fa-sun slider-icon"></i>
+                    <i class="fas fa-moon slider-icon"></i>
+                </div>
+            </label>
+        </div>
     </div>
 </nav>
 `;
@@ -32,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (navPlaceholder) {
         navPlaceholder.innerHTML = navbarContent;
         setActiveLink();
+        syncThemeToggle(); // Sync slider AFTER injection
     }
 
     // Inject Footer
@@ -40,6 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
         footerPlaceholder.innerHTML = footerContent;
     }
 });
+
+function syncThemeToggle() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    if (toggleSwitch) {
+        toggleSwitch.checked = savedTheme === 'dark';
+    }
+}
 
 function setActiveLink() {
     const currentPath = window.location.pathname;

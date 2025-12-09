@@ -13,6 +13,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme-toggle.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -22,8 +23,8 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="container" style="display: flex; align-items: center; gap: 40px; margin-top: 40px;">
-            <div style="flex: 1;">
+        <section class="container hero-section">
+            <div class="hero-text">
                 <h1 style="font-size: 3rem; margin-bottom: 20px; line-height: 1.2;">Membawa <span
                         style="color: var(--primary-color);">Kehidupan</span> ke Dalam Kelas</h1>
                 <p style="font-size: 1.2rem; color: var(--secondary-color); margin-bottom: 30px;">
@@ -33,9 +34,8 @@
                 <a href="about.html" class="btn">Tentang Saya <i class="fas fa-arrow-right"
                         style="margin-left: 10px;"></i></a>
             </div>
-            <div style="flex: 1; display: flex; justify-content: center;">
-                <div
-                    style="width: 350px; height: 350px; background-color: var(--light-gray); border-radius: 50%; overflow: hidden; border: 5px solid var(--primary-color);">
+            <div class="hero-image-wrapper">
+                <div class="profile-image-container">
                     <!-- Placeholder for Profile Image -->
                     <img src="images/profile_teacher.png" alt="Foto Profil Guru"
                         style="width: 100%; height: 100%; object-fit: cover;">
@@ -46,10 +46,9 @@
         <!-- Highlights Section -->
         <section class="container">
             <h2 style="text-align: center; margin-bottom: 40px;">Pilar Pengajaran</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <div class="grid-auto-fit">
                 <!-- Card 1 -->
-                <div
-                    style="padding: 30px; border: 1px solid var(--border-color); border-radius: 10px; text-align: center; background: white; transition: transform 0.2s;">
+                <div class="card-item">
                     <i class="fas fa-palette"
                         style="font-size: 3rem; color: var(--accent-color); margin-bottom: 20px;"></i>
                     <h3>Media Kreatif</h3>
@@ -57,8 +56,7 @@
                         melalui infografis dan animasi.</p>
                 </div>
                 <!-- Card 2 -->
-                <div
-                    style="padding: 30px; border: 1px solid var(--border-color); border-radius: 10px; text-align: center; background: white; transition: transform 0.2s;">
+                <div class="card-item">
                     <i class="fas fa-microscope"
                         style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
                     <h3>Riset & Analisis</h3>
@@ -66,8 +64,7 @@
                         meningkatkan kualitas pembelajaran.</p>
                 </div>
                 <!-- Card 3 -->
-                <div
-                    style="padding: 30px; border: 1px solid var(--border-color); border-radius: 10px; text-align: center; background: white; transition: transform 0.2s;">
+                <div class="card-item">
                     <i class="fas fa-pen-fancy" style="font-size: 3rem; color: #ff6b6b; margin-bottom: 20px;"></i>
                     <h3>Penulisan</h3>
                     <p style="color: var(--secondary-color);">Aktif menulis publikasi ilmiah dan buku pelajaran sebagai
@@ -79,20 +76,20 @@
         <!-- Latest Updates Section -->
         <section class="container">
             <h2>Materi & Media Terbaru</h2>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
-                <div style="border: 1px solid var(--border-color); border-radius: 8px; padding: 20px;">
+            <div class="grid-3-cols">
+                <div class="update-card">
                     <span style="font-size: 0.8rem; color: var(--accent-color); font-weight: 700;">MEDIA</span>
                     <h4 style="margin: 10px 0;">Infografis Sistem Imun</h4>
                     <p style="font-size: 0.9rem; color: var(--secondary-color);">Visualisasi mekanisme pertahanan tubuh
                         manusia.</p>
                 </div>
-                <div style="border: 1px solid var(--border-color); border-radius: 8px; padding: 20px;">
+                <div class="update-card">
                     <span style="font-size: 0.8rem; color: var(--primary-color); font-weight: 700;">MATERI</span>
                     <h4 style="margin: 10px 0;">Modul Genetika Kelas XII</h4>
                     <p style="font-size: 0.9rem; color: var(--secondary-color);">Panduan komprehensif pewarisan sifat
                         Mendel.</p>
                 </div>
-                <div style="border: 1px solid var(--border-color); border-radius: 8px; padding: 20px;">
+                <div class="update-card">
                     <span style="font-size: 0.8rem; color: #ff6b6b; font-weight: 700;">BLOG</span>
                     <h4 style="margin: 10px 0;">Refleksi PJJ 2024</h4>
                     <p style="font-size: 0.9rem; color: var(--secondary-color);">Catatan evaluasi pembelajaran jarak

@@ -9,6 +9,8 @@
         content="Koleksi media pembelajaran biologi: Infografis, Video, dan Alat Peraga Fisik buatan sendiri.">
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme-toggle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -23,12 +25,16 @@
 
         <!-- Filter Buttons -->
         <div style="margin-bottom: 30px; display: flex; gap: 15px;">
-            <button class="btn" onclick="filterMedia('all')" style="background-color: var(--text-color);">Semua</button>
-            <button class="btn" onclick="filterMedia('visual')" style="background-color: #e9ecef; color: #333;">Visual &
+            <button class="btn filter-btn" onclick="filterMedia('all')"
+                style="background-color: var(--text-color);">Semua</button>
+            <button class="btn filter-btn" onclick="filterMedia('visual')"
+                style="background-color: #e9ecef; color: #333;">Visual &
                 Poster</button>
-            <button class="btn" onclick="filterMedia('digital')" style="background-color: #e9ecef; color: #333;">Digital
+            <button class="btn filter-btn" onclick="filterMedia('digital')"
+                style="background-color: #e9ecef; color: #333;">Digital
                 & Video</button>
-            <button class="btn" onclick="filterMedia('fisik')" style="background-color: #e9ecef; color: #333;">Alat
+            <button class="btn filter-btn" onclick="filterMedia('fisik')"
+                style="background-color: #e9ecef; color: #333;">Alat
                 Peraga Fisik</button>
         </div>
 
@@ -39,7 +45,7 @@
 
             <!-- Item 1: Visual -->
             <div class="media-item" data-category="visual"
-                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;">
+                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; background: var(--card-bg);">
                 <img src="images/cell_division_infographic.png" alt="Poster Siklus Krebs"
                     style="width: 100%; height: 200px; object-fit: cover;">
                 <div style="padding: 20px;">
@@ -53,7 +59,7 @@
 
             <!-- Item 2: Digital -->
             <div class="media-item" data-category="digital"
-                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;">
+                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; background: var(--card-bg);">
                 <div
                     style="width: 100%; height: 200px; background: #000; display: flex; align-items: center; justify-content: center; color: white;">
                     <i class="fas fa-play-circle fa-3x"></i>
@@ -69,7 +75,7 @@
 
             <!-- Item 3: Fisik -->
             <div class="media-item" data-category="fisik"
-                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;">
+                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; background: var(--card-bg);">
                 <img src="images/dna_model_craft.png" alt="Model DNA"
                     style="width: 100%; height: 200px; object-fit: cover;">
                 <div style="padding: 20px;">

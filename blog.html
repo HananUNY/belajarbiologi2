@@ -8,6 +8,7 @@
     <meta name="description" content="Kumpulan tulisan opini, trivia biologi, dan cerita pengalaman mengajar di kelas.">
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme-toggle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -20,20 +21,29 @@
             <p style="color: var(--secondary-color);">Catatan kecil tentang pendidikan, sains, dan dinamika kelas.</p>
         </section>
 
-        <!-- Categories (Optional Future Impl) -->
-        <div style="margin-bottom: 30px;">
-            <span style="font-weight: 600; margin-right: 10px;">Kategori:</span>
-            <span
-                style="display: inline-block; padding: 5px 10px; background: var(--light-gray); border-radius: 5px; font-size: 0.9rem; margin-right: 5px;">Semua</span>
-            <span
-                style="display: inline-block; padding: 5px 10px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 0.9rem; margin-right: 5px; color: var(--secondary-color);">Opini</span>
-            <span
-                style="display: inline-block; padding: 5px 10px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 0.9rem; margin-right: 5px; color: var(--secondary-color);">Trivia</span>
+        <!-- Search Bar -->
+        <div style="margin-bottom: 20px; position: relative;">
+            <input type="text" id="searchInput" placeholder="Cari artikel..." onkeyup="searchBlog()"
+                style="width: 100%; padding: 15px 20px; padding-left: 50px; border-radius: 50px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); font-family: var(--font-main); font-size: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); outline: none; transition: border-color 0.3s;">
+            <i class="fas fa-search"
+                style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--secondary-color);"></i>
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div style="margin-bottom: 30px; display: flex; gap: 10px;">
+            <button class="btn filter-btn" data-category="all" onclick="filterBlog('all')"
+                style="background-color: var(--base-color); color: var(--text-color); border: 1px solid var(--border-color);">Semua</button>
+            <button class="btn filter-btn" data-category="Opini Pendidikan" onclick="filterBlog('Opini Pendidikan')"
+                style="background-color: transparent; color: var(--secondary-color); border: 1px solid var(--border-color);">Opini</button>
+            <button class="btn filter-btn" data-category="Trivia Biologi" onclick="filterBlog('Trivia Biologi')"
+                style="background-color: transparent; color: var(--secondary-color); border: 1px solid var(--border-color);">Trivia</button>
+            <button class="btn filter-btn" data-category="Cerita Kelas" onclick="filterBlog('Cerita Kelas')"
+                style="background-color: transparent; color: var(--secondary-color); border: 1px solid var(--border-color);">Cerita
+                Kelas</button>
         </div>
 
         <!-- Blog Container -->
         <div id="blog-container" style="display: grid; gap: 30px;">
-            <!-- Posts will be injected here by JS -->
             <p>Memuat artikel...</p>
         </div>
     </main>
@@ -46,18 +56,81 @@
 
     <!-- Render Script -->
     <script>
+        // State management variables
+        let currentCategory = 'all';
+        let searchQuery = '';
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Initial render (show all)
+            renderPosts();
+
+            // Set initial active state for 'Semua'
+            updateActiveButton('all');
+        });
+
+        // Triggered by Category Buttons
+        function filterBlog(category) {
+            currentCategory = category;
+            updateActiveButton(category);
+            renderPosts(); // Re-render with new category
+        }
+
+        // Triggered by Search Input
+        function searchBlog() {
+            const input = document.getElementById('searchInput');
+            searchQuery = input.value.toLowerCase();
+            renderPosts(); // Re-render with new search query
+        }
+
+        function updateActiveButton(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                const btnCategory = btn.getAttribute('data-category');
+
+                // Exact match using data attribute
+                const isMatch = btnCategory === category;
+
+                if (isMatch) {
+                    btn.style.backgroundColor = 'var(--primary-color)';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = 'var(--primary-color)';
+                } else {
+                    btn.style.backgroundColor = 'transparent';
+                    btn.style.color = 'var(--secondary-color)';
+                    btn.style.borderColor = 'var(--border-color)';
+                }
+            });
+        }
+
+        function renderPosts() {
             const container = document.getElementById('blog-container');
 
             if (typeof blogPosts !== 'undefined' && Array.isArray(blogPosts)) {
-                container.innerHTML = ''; // Clear loading message
+                container.innerHTML = '';
 
-                blogPosts.forEach(post => {
+                // Main Logic: Combine Category Filter + Search Query
+                const filteredPosts = blogPosts.filter(post => {
+                    // 1. Check Category
+                    const categoryMatch = currentCategory === 'all' || post.category === currentCategory;
+
+                    // 2. Check Search (Title or Excerpt)
+                    const searchMatch = post.title.toLowerCase().includes(searchQuery) ||
+                        (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery));
+
+                    return categoryMatch && searchMatch;
+                });
+
+                if (filteredPosts.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; color: var(--secondary-color); padding: 40px;"><p>Tidak ada artikel yang cocok.</p></div>';
+                    return;
+                }
+
+                filteredPosts.forEach(post => {
                     const article = document.createElement('article');
                     article.style.padding = '25px';
                     article.style.border = '1px solid var(--border-color)';
                     article.style.borderRadius = '10px';
-                    article.style.background = 'white';
+                    article.style.background = 'var(--card-bg)';
 
                     article.innerHTML = `
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
@@ -66,7 +139,7 @@
                         </div>
                         <h2 style="font-size: 1.5rem; margin-bottom: 10px;"><a href="post.html?id=${post.id}" style="text-decoration:none;">${post.title}</a></h2>
                         <p style="color: var(--secondary-color); margin-bottom: 15px;">
-                            ${post.content.substring(0, 150)}...
+                            ${post.excerpt}
                         </p>
                         <a href="post.html?id=${post.id}" style="font-weight: 600; color: var(--text-color); font-size: 0.9rem;">Baca Selengkapnya <i class="fas fa-arrow-right" style="font-size: 0.8rem;"></i></a>
                     `;
@@ -75,7 +148,7 @@
             } else {
                 container.innerHTML = '<p>Gagal memuat data artikel.</p>';
             }
-        });
+        }
     </script>
 </body>
 
