@@ -135,6 +135,44 @@ h3 {
     transition: background-color 0.3s ease;
 }
 
+/* Navbar Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--card-bg);
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    top: 100%;
+    left: 0;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 /* Footer Placeholder */
 #footer-placeholder {
     margin-top: 50px;
@@ -193,6 +231,41 @@ h3 {
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px !important;
+    }
+
+    /* Mobile Dropdown */
+    .dropdown {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown-content {
+        position: static;
+        display: none;
+        /* Hide by default, maybe show on click or always show? Lets use primitive hover for now or just block */
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding-left: 0;
+    }
+
+    /* Make dropdown visible on hover or just allow it to be separate links on mobile if simpler, 
+       but for now let's just make it visible on hover which might be tricky on touch. 
+       Better approach for simple mobile: show it always or structure differently.
+       Let's stick to hover for now or ensure it expands. 
+       Actually, common pattern is to just list them. Let's make it display block on simple mobile layout if possible 
+       or just keep hover behavior which works on some mobile. 
+       Refining: let's make .dropdown-content relative and visible on hover (tap).
+    */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        padding: 8px 0;
+        font-size: 0.9rem;
+        color: var(--secondary-color);
     }
 
     /* 4. Hero Section */

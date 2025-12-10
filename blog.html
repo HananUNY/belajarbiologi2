@@ -57,12 +57,14 @@
     <!-- Render Script -->
     <script>
         // State management variables
+        const ITEMS_PER_PAGE = 5;
+        let currentPage = 1;
         let currentCategory = 'all';
         let searchQuery = '';
 
         document.addEventListener('DOMContentLoaded', () => {
             // Initial render (show all)
-            renderPosts();
+            renderPosts(currentPage);
 
             // Set initial active state for 'Semua'
             updateActiveButton('all');
@@ -71,25 +73,24 @@
         // Triggered by Category Buttons
         function filterBlog(category) {
             currentCategory = category;
+            currentPage = 1; // Reset to page 1
             updateActiveButton(category);
-            renderPosts(); // Re-render with new category
+            renderPosts(currentPage);
         }
 
         // Triggered by Search Input
         function searchBlog() {
             const input = document.getElementById('searchInput');
             searchQuery = input.value.toLowerCase();
-            renderPosts(); // Re-render with new search query
+            currentPage = 1; // Reset to page 1
+            renderPosts(currentPage);
         }
 
         function updateActiveButton(category) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
                 const btnCategory = btn.getAttribute('data-category');
-
-                // Exact match using data attribute
                 const isMatch = btnCategory === category;
-
                 if (isMatch) {
                     btn.style.backgroundColor = 'var(--primary-color)';
                     btn.style.color = 'white';
@@ -102,30 +103,34 @@
             });
         }
 
-        function renderPosts() {
+        function renderPosts(page) {
             const container = document.getElementById('blog-container');
+            const paginationContainer = document.getElementById('pagination-container') || createPaginationContainer();
 
             if (typeof blogPosts !== 'undefined' && Array.isArray(blogPosts)) {
-                container.innerHTML = '';
-
-                // Main Logic: Combine Category Filter + Search Query
+                // 1. Filter Data First
                 const filteredPosts = blogPosts.filter(post => {
-                    // 1. Check Category
                     const categoryMatch = currentCategory === 'all' || post.category === currentCategory;
-
-                    // 2. Check Search (Title or Excerpt)
                     const searchMatch = post.title.toLowerCase().includes(searchQuery) ||
                         (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery));
-
                     return categoryMatch && searchMatch;
                 });
 
                 if (filteredPosts.length === 0) {
                     container.innerHTML = '<div style="text-align:center; color: var(--secondary-color); padding: 40px;"><p>Tidak ada artikel yang cocok.</p></div>';
+                    paginationContainer.innerHTML = '';
                     return;
                 }
 
-                filteredPosts.forEach(post => {
+                // 2. Paginate Filtered Data
+                const startIndex = (page - 1) * ITEMS_PER_PAGE;
+                const endIndex = startIndex + ITEMS_PER_PAGE;
+                const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+                const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE);
+
+                // 3. Render
+                container.innerHTML = '';
+                paginatedPosts.forEach(post => {
                     const article = document.createElement('article');
                     article.style.padding = '25px';
                     article.style.border = '1px solid var(--border-color)';
@@ -145,9 +150,72 @@
                     `;
                     container.appendChild(article);
                 });
+
+                // 4. Render Pagination Controls
+                renderPaginationControls(paginationContainer, page, totalPages);
+
             } else {
                 container.innerHTML = '<p>Gagal memuat data artikel.</p>';
             }
+        }
+
+        function createPaginationContainer() {
+            const container = document.createElement('div');
+            container.id = 'pagination-container';
+            container.style.marginTop = '40px';
+            container.style.display = 'flex';
+            container.style.justifyContent = 'center';
+            container.style.gap = '10px';
+            document.querySelector('#blog-container').parentNode.appendChild(container); // Append after blog-container
+            return container;
+        }
+
+        function renderPaginationControls(container, currentPage, totalPages) {
+            container.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Previous Button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Sebelumnya';
+            prevBtn.style.backgroundColor = currentPage === 1 ? '#e9ecef' : 'var(--text-color)';
+            prevBtn.style.color = currentPage === 1 ? '#999' : 'white';
+            prevBtn.style.cursor = currentPage === 1 ? 'default' : 'pointer';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPosts(currentPage);
+                    // Scroll to top of section
+                    document.getElementById('blog-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+            container.appendChild(prevBtn);
+
+            // Page Info
+            const pageInfo = document.createElement('span');
+            pageInfo.innerText = `Halaman ${currentPage} dari ${totalPages}`;
+            pageInfo.style.alignSelf = 'center';
+            pageInfo.style.fontWeight = '500';
+            container.appendChild(pageInfo);
+
+            // Next Button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'btn';
+            nextBtn.innerHTML = 'Selanjutnya <i class="fas fa-chevron-right"></i>';
+            nextBtn.style.backgroundColor = currentPage === totalPages ? '#e9ecef' : 'var(--text-color)';
+            nextBtn.style.color = currentPage === totalPages ? '#999' : 'white';
+            nextBtn.style.cursor = currentPage === totalPages ? 'default' : 'pointer';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPosts(currentPage);
+                    document.getElementById('blog-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+            container.appendChild(nextBtn);
         }
     </script>
 </body>

@@ -15,13 +15,19 @@ initTheme();
 
 const navbarContent = `
 <nav class="container" style="display: flex; justify-content: space-between; align-items: center; height: var(--header-height);">
-    <a href="index.html" style="font-size: 1.5rem; font-weight: 800; color: #333;">
+    <a href="index.html" style="font-size: 1.5rem; font-weight: 800; color: var(--text-color);">
         Belajar<span style="color: var(--primary-color);">Biologi</span>
     </a>
     <div style="display: flex; gap: 25px; font-weight: 500; align-items: center;">
         <a href="index.html">Beranda</a>
         <a href="about.html">Tentang Saya</a>
-        <a href="media.html">Media</a>
+        <div class="dropdown">
+            <a href="media.html" style="padding: 10px 0;">Media <i class="fas fa-caret-down"></i></a>
+            <div class="dropdown-content">
+                <a href="media.html">Media Pembelajaran</a>
+                <a href="https://belajar.biologi.my.id" target="_blank">Lab Digital</a>
+            </div>
+        </div>
         <a href="teaching.html">Materi</a>
         <a href="publications.html">Publikasi</a>
         <a href="blog.html">Blog</a>
@@ -41,11 +47,11 @@ const navbarContent = `
 
 const footerContent = `
 <div class="container">
-    <p>&copy; 2025 Guru Biologi Profesional. All rights reserved.</p>
+    <p>&copy; 2025 Belajar Biologi. All rights reserved.</p>
     <div style="margin-top: 10px; display: flex; justify-content: center; gap: 20px;">
-        <a href="#">LinkedIn</a>
-        <a href="#">Google Scholar</a>
-        <a href="#">Instagram</a>
+        <a href="https://www.linkedin.com/in/hanan-prasetya/" target="_blank">LinkedIn</a>
+        <a href="https://scholar.google.com/citations?user=2NspuT8AAAAJ&hl=id&oi=ao" target="_blank">Google Scholar</a>
+        <a href="https://instagram.com/hdp_hanan" target="_blank">Instagram</a>
     </div>
 </div>
 `;

@@ -4,9 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Pembelajaran | Guru Biologi Profesional</title>
+    <title>Media Pembelajaran Biologi & Lab Digital | Guru Biologi</title>
     <meta name="description"
-        content="Koleksi media pembelajaran biologi: Infografis, Video, dan Alat Peraga Fisik buatan sendiri.">
+        content="Galeri Media Pembelajaran Biologi interaktif dan Lab Digital. Koleksi infografis, video, dan alat peraga untuk mendukung Belajar Biologi SMA lebih mudah dan menyenangkan.">
+    <meta name="keywords"
+        content="Media Pembelajaran Biologi, Lab Digital, Alat Peraga Biologi, Video Biologi, Infografis Biologi">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://belajarbiologi.com/media.html">
+    <meta property="og:title" content="Media Pembelajaran Biologi & Lab Digital | Guru Biologi">
+    <meta property="og:description"
+        content="Galeri Media Pembelajaran Biologi interaktif dan Lab Digital. Koleksi infografis, video, dan alat peraga.">
+    <meta property="og:image" content="images/cell_division_infographic.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://belajarbiologi.com/media.html">
+    <meta property="twitter:title" content="Media Pembelajaran Biologi & Lab Digital | Guru Biologi">
+    <meta property="twitter:description"
+        content="Galeri Media Pembelajaran Biologi interaktif dan Lab Digital. Koleksi infografis, video, dan alat peraga.">
+    <meta property="twitter:image" content="images/cell_division_infographic.png">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/theme-toggle.css">
@@ -17,97 +35,141 @@
     <div id="navbar-placeholder"></div>
 
     <main class="container">
-        <section>
-            <h1>Media Pembelajaran</h1>
-            <p style="color: var(--secondary-color);">Inspirasi dan kreativitas dalam memvisualisasikan konsep Biologi.
-            </p>
+        <!-- Section 1: Media Pembelajaran -->
+        <section style="padding-bottom: 20px;">
+            <h2 style="border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 30px;">Media
+                Pembelajaran</h2>
+
+            <!-- Dynamic Grid Container -->
+            <div id="media-grid" class="grid-auto-fit">
+                <p>Memuat media...</p>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="pagination-controls" style="margin-top: 40px; display: flex; justify-content: center; gap: 10px;">
+                <!-- Buttons injected by JS -->
+            </div>
         </section>
-
-        <!-- Filter Buttons -->
-        <div style="margin-bottom: 30px; display: flex; gap: 15px;">
-            <button class="btn filter-btn" onclick="filterMedia('all')"
-                style="background-color: var(--text-color);">Semua</button>
-            <button class="btn filter-btn" onclick="filterMedia('visual')"
-                style="background-color: #e9ecef; color: #333;">Visual &
-                Poster</button>
-            <button class="btn filter-btn" onclick="filterMedia('digital')"
-                style="background-color: #e9ecef; color: #333;">Digital
-                & Video</button>
-            <button class="btn filter-btn" onclick="filterMedia('fisik')"
-                style="background-color: #e9ecef; color: #333;">Alat
-                Peraga Fisik</button>
-        </div>
-
-        <!-- Gallery Grid -->
-        <!-- Gallery Grid -->
-        <div id="media-grid"
-            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
-
-            <!-- Item 1: Visual -->
-            <div class="media-item" data-category="visual"
-                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; background: var(--card-bg);">
-                <img src="images/cell_division_infographic.png" alt="Poster Siklus Krebs"
-                    style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 20px;">
-                    <span
-                        style="font-size: 0.8rem; background: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 4px;">Visual</span>
-                    <h3 style="margin: 10px 0; font-size: 1.2rem;">Infografis Siklus Krebs</h3>
-                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Penyederhanaan tahapan respirasi aerob
-                        untuk kelas XII.</p>
-                </div>
-            </div>
-
-            <!-- Item 2: Digital -->
-            <div class="media-item" data-category="digital"
-                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; background: var(--card-bg);">
-                <div
-                    style="width: 100%; height: 200px; background: #000; display: flex; align-items: center; justify-content: center; color: white;">
-                    <i class="fas fa-play-circle fa-3x"></i>
-                </div>
-                <div style="padding: 20px;">
-                    <span
-                        style="font-size: 0.8rem; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 4px;">Digital</span>
-                    <h3 style="margin: 10px 0; font-size: 1.2rem;">Video Pembelahan Sel</h3>
-                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Animasi mitosis dan meiosis dengan
-                        dubbing penjelasan.</p>
-                </div>
-            </div>
-
-            <!-- Item 3: Fisik -->
-            <div class="media-item" data-category="fisik"
-                style="border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; background: var(--card-bg);">
-                <img src="images/dna_model_craft.png" alt="Model DNA"
-                    style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 20px;">
-                    <span
-                        style="font-size: 0.8rem; background: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 4px;">Fisik</span>
-                    <h3 style="margin: 10px 0; font-size: 1.2rem;">Model DNA Barang Bekas</h3>
-                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Alat peraga double helix dari sedotan
-                        dan kawat.</p>
-                    <a href="#"
-                        style="font-size: 0.9rem; text-decoration: underline; color: var(--primary-color);">Lihat Cara
-                        Penggunaan</a>
-                </div>
-            </div>
-
-        </div>
     </main>
 
     <div id="footer-placeholder"></div>
     <script src="js/main.js"></script>
+    <script src="data/media-data.js"></script>
     <script>
-        function filterMedia(category) {
-            const items = document.querySelectorAll('.media-item');
-            const buttons = document.querySelectorAll('.filter-btn'); // Note: I didn't add class filter-btn to buttons above yet.
+        const ITEMS_PER_PAGE = 6;
+        let currentPage = 1;
 
-            // Filter Logic
-            items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMedia(currentPage);
+        });
+
+        function renderMedia(page) {
+            const container = document.getElementById('media-grid');
+            const paginationContainer = document.getElementById('pagination-controls');
+
+            if (typeof mediaPosts !== 'undefined' && Array.isArray(mediaPosts)) {
+                // Calculate Paging
+                const startIndex = (page - 1) * ITEMS_PER_PAGE;
+                const endIndex = startIndex + ITEMS_PER_PAGE;
+                const paginatedPosts = mediaPosts.slice(startIndex, endIndex);
+                const totalPages = Math.ceil(mediaPosts.length / ITEMS_PER_PAGE);
+
+                // Clear & Render Items
+                container.innerHTML = '';
+
+                if (paginatedPosts.length > 0) {
+                    paginatedPosts.forEach(post => {
+                        const card = document.createElement('div');
+                        card.className = 'card-bg';
+                        card.style.borderRadius = '10px';
+                        card.style.overflow = 'hidden';
+                        card.style.transition = 'transform 0.2s';
+
+                        // Determine thumbnail
+                        let thumbnailHtml = '';
+                        if (post.isVideoInfo) {
+                            thumbnailHtml = `
+                                <div style="width: 100%; height: 200px; background: #000; display: flex; align-items: center; justify-content: center; color: white;">
+                                    <i class="fas fa-play-circle fa-3x"></i>
+                                </div>
+                            `;
+                        } else {
+                            thumbnailHtml = `
+                                <img src="${post.image}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;">
+                            `;
+                        }
+
+                        card.innerHTML = `
+                            <a href="media-detail.html?id=${post.id}" style="text-decoration: none; color: inherit;">
+                                ${thumbnailHtml}
+                                <div style="padding: 20px;">
+                                    <span style="font-size: 0.8rem; background: ${post.badgeColor}; color: ${post.badgeTextColor}; padding: 2px 8px; border-radius: 4px;">${post.category}</span>
+                                    <h3 style="margin: 10px 0; font-size: 1.2rem;">${post.title}</h3>
+                                    <p style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 15px;">${post.description}</p>
+                                    <span style="font-size: 0.9rem; color: var(--primary-color); font-weight: 500;">Lihat Detail <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                        `;
+                        container.appendChild(card);
+                    });
                 } else {
-                    item.style.display = 'none';
+                    container.innerHTML = '<p>Tidak ada media ditemukan.</p>';
                 }
-            });
+
+                // Render Pagination Controls
+                renderPaginationControls(paginationContainer, page, totalPages);
+
+            } else {
+                container.innerHTML = '<p>Gagal memuat data media.</p>';
+            }
+        }
+
+        function renderPaginationControls(container, currentPage, totalPages) {
+            container.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Previous Button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Sebelumnya';
+            prevBtn.style.backgroundColor = currentPage === 1 ? '#e9ecef' : 'var(--text-color)';
+            prevBtn.style.color = currentPage === 1 ? '#999' : 'white';
+            prevBtn.style.cursor = currentPage === 1 ? 'default' : 'pointer';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderMedia(currentPage);
+                    // Scroll to top of grid
+                    document.getElementById('media-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+            container.appendChild(prevBtn);
+
+            // Page Info
+            const pageInfo = document.createElement('span');
+            pageInfo.innerText = `Halaman ${currentPage} dari ${totalPages}`;
+            pageInfo.style.alignSelf = 'center';
+            pageInfo.style.fontWeight = '500';
+            container.appendChild(pageInfo);
+
+            // Next Button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'btn';
+            nextBtn.innerHTML = 'Selanjutnya <i class="fas fa-chevron-right"></i>';
+            nextBtn.style.backgroundColor = currentPage === totalPages ? '#e9ecef' : 'var(--text-color)';
+            nextBtn.style.color = currentPage === totalPages ? '#999' : 'white';
+            nextBtn.style.cursor = currentPage === totalPages ? 'default' : 'pointer';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderMedia(currentPage);
+                    document.getElementById('media-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+            container.appendChild(nextBtn);
         }
     </script>
 </body>
