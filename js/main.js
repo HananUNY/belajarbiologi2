@@ -14,11 +14,16 @@ function toggleTheme(isChecked) {
 initTheme();
 
 const navbarContent = `
-<nav class="container" style="display: flex; justify-content: space-between; align-items: center; height: var(--header-height); gap: 30px;">
-    <a href="index.html" style="font-size: 1.5rem; font-weight: 800; color: var(--text-color);">
+<nav class="container" style="display: flex; justify-content: space-between; align-items: center; height: var(--header-height); position: relative; gap: 30px;">
+    <a href="index.html" style="font-size: 1.5rem; font-weight: 800; color: var(--text-color); text-decoration: none;">
         Belajar<span style="color: var(--primary-color);">Biologi</span>
     </a>
-    <div style="display: flex; gap: 25px; font-weight: 500; align-items: center;">
+
+    <button class="menu-toggle" onclick="toggleMenu()" style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="nav-menu" id="navMenu" style="display: flex; gap: 25px; font-weight: 500; align-items: center;">
         <a href="index.html">Beranda</a>
         <a href="about.html">Tentang Saya</a>
         <div class="dropdown">
@@ -44,6 +49,11 @@ const navbarContent = `
     </div>
 </nav>
 `;
+
+function toggleMenu() {
+    const navMenu = document.getElementById('navMenu');
+    navMenu.classList.toggle('active');
+}
 
 const footerContent = `
 <div class="container">
