@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div id="navbar-placeholder"></div>
+    <header id="navbar-placeholder"></header>
 
     <main class="container">
         <section style="padding: 40px 0 20px 0;">
@@ -36,69 +36,87 @@
         <!-- Books Section -->
         <section style="padding: 20px 0;">
             <h2>Buku Karya Saya</h2>
-            <div style="display: flex; gap: 40px; margin-top: 30px; flex-wrap: wrap;">
-                <!-- Book Item 1 -->
-                <div
-                    style="display: flex; gap: 20px; border: 1px solid var(--border-color); padding: 20px; border-radius: 10px; max-width: 600px; background: var(--card-bg);">
-                    <div
-                        style="width: 120px; flex-shrink: 0; background: #eee; height: 180px; display: flex; align-items: center; justify-content: center; color: #aaa;">
-                        <i class="fas fa-book fa-2x"></i>
-                    </div>
-                    <div>
-                        <h3 style="font-size: 1.3rem; margin-bottom: 10px;">Biologi Interaktif SMA Kelas X</h3>
-                        <p style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 15px;">
-                            Buku pengayaan yang dilengkapi dengan Augmented Reality untuk memvisualisasikan virus dan
-                            bakteri.
-                        </p>
-                        <div style="display: flex; gap: 10px;">
-                            <a href="#" class="btn">Beli Buku</a>
-                            <a href="#"
-                                style="padding: 10px 20px; border: 1px solid var(--primary-color); color: var(--primary-color); border-radius: 5px; font-weight: 500;">Baca
-                                Sampel (Bab 1)</a>
-                        </div>
-                    </div>
-                </div>
+            <div id="books-container" style="display: flex; gap: 40px; margin-top: 30px; flex-wrap: wrap;">
+                <!-- Injected via JS -->
+                <p>Memuat data buku...</p>
             </div>
         </section>
 
         <!-- Research / PTK Section -->
         <section style="padding: 20px 0;">
             <h2>Jurnal & Penelitian (PTK)</h2>
-            <div style="margin-top: 20px;">
-                <!-- Paper 1 -->
-                <div style="margin-bottom: 30px;">
-                    <h3 style="font-size: 1.2rem; color: #333; margin-bottom: 5px;">Penerapan Model Problem Based
-                        Learning Berbantuan Video Animasi untuk Meningkatkan Hasil Belajar Siswa pada Materi Sistem Imun
-                    </h3>
-                    <div style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 10px;">
-                        <i>Jurnal Pendidikan Biologi Indonesia</i>, Vol. 5 No. 2, 2023.
-                    </div>
-                    <div
-                        style="background: #e3f2fd; padding: 10px; border-radius: 5px; font-size: 0.9rem; color: #0d47a1; margin-bottom: 10px;">
-                        <strong>Dampak Riset:</strong> Meningkatkan rata-rata nilai siswa sebesar 25% dan partisipasi
-                        aktif di kelas.
-                    </div>
-                    <a href="#" style="color: var(--primary-color); font-weight: 500;"><i class="fas fa-download"></i>
-                        Download Abstrak / Full PDF</a>
-                </div>
-
-                <!-- Paper 2 -->
-                <div style="margin-bottom: 30px;">
-                    <h3 style="font-size: 1.2rem; color: #333; margin-bottom: 5px;">Analisis Miskonsepsi Siswa pada
-                        Materi Genetika Menggunakan Certainty of Response Index (CRI)</h3>
-                    <div style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 10px;">
-                        <i>Seminar Nasional Pendidikan Sains</i>, 2022.
-                    </div>
-                    <a href="#" style="color: var(--primary-color); font-weight: 500;"><i class="fas fa-download"></i>
-                        Download Abstrak / Full PDF</a>
-                </div>
+            <div id="journals-container" style="margin-top: 20px;">
+                <!-- Injected via JS -->
+                <p>Memuat data jurnal...</p>
             </div>
         </section>
 
     </main>
 
-    <div id="footer-placeholder"></div>
+    <footer id="footer-placeholder"></footer>
     <script src="js/main.js"></script>
+    <script src="data/publications-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof publicationsData !== 'undefined') {
+                // Render Books
+                const booksContainer = document.getElementById('books-container');
+                if (booksContainer && publicationsData.books) {
+                    booksContainer.innerHTML = '';
+                    publicationsData.books.forEach(book => {
+                        const article = document.createElement('article');
+                        article.style.cssText = "display: flex; gap: 20px; border: 1px solid var(--border-color); padding: 20px; border-radius: 10px; max-width: 600px; background: var(--card-bg);";
+                        article.innerHTML = `
+                            <div style="width: 120px; flex-shrink: 0; background: #eee; height: 180px; display: flex; align-items: center; justify-content: center; color: #aaa;">
+                                <i class="fas ${book.coverIcon || 'fa-book'} fa-2x"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.3rem; margin-bottom: 10px;">${book.title}</h3>
+                                <p style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 15px;">
+                                    ${book.description}
+                                </p>
+                                <div style="display: flex; gap: 10px;">
+                                    <a href="${book.link}" class="btn">${book.action}</a>
+                                    ${book.sampleLink ? `<a href="${book.sampleLink}" style="padding: 10px 20px; border: 1px solid var(--primary-color); color: var(--primary-color); border-radius: 5px; font-weight: 500;">Baca Sampel</a>` : ''}
+                                </div>
+                            </div>
+                        `;
+                        booksContainer.appendChild(article);
+                    });
+                }
+
+                // Render Journals
+                const journalsContainer = document.getElementById('journals-container');
+                if (journalsContainer && publicationsData.journals) {
+                    journalsContainer.innerHTML = '';
+                    publicationsData.journals.forEach(journal => {
+                        const article = document.createElement('article');
+                        article.style.marginBottom = "30px";
+
+                        let impactHtml = '';
+                        if (journal.impact) {
+                            impactHtml = `
+                            <div style="background: var(--light-gray); padding: 10px; border-radius: 5px; font-size: 0.9rem; color: var(--primary-color); margin-bottom: 10px;">
+                                <strong>Dampak Riset:</strong> ${journal.impact}
+                            </div>
+                            `;
+                        }
+
+                        article.innerHTML = `
+                             <h3 style="font-size: 1.2rem; margin-bottom: 5px;">${journal.title}</h3>
+                            <div style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 10px;">
+                                <i>${journal.journalName}</i>, ${journal.vol ? journal.vol + ',' : ''} ${journal.year}.
+                            </div>
+                            ${impactHtml}
+                            <a href="${journal.link}" style="color: var(--primary-color); font-weight: 500;"><i class="fas fa-download"></i>
+                                Download Abstrak / Full PDF</a>
+                        `;
+                        journalsContainer.appendChild(article);
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

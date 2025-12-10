@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <div id="navbar-placeholder"></div>
+    <header id="navbar-placeholder"></header>
 
     <main class="container">
         <!-- Section 1: Media Pembelajaran -->
@@ -52,7 +52,7 @@
         </section>
     </main>
 
-    <div id="footer-placeholder"></div>
+    <footer id="footer-placeholder"></footer>
     <script src="js/main.js"></script>
     <script src="data/media-data.js"></script>
     <script>
@@ -79,7 +79,7 @@
 
                 if (paginatedPosts.length > 0) {
                     paginatedPosts.forEach(post => {
-                        const card = document.createElement('div');
+                        const card = document.createElement('article');
                         card.className = 'card-bg';
                         card.style.borderRadius = '10px';
                         card.style.overflow = 'hidden';

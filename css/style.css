@@ -3,6 +3,8 @@
 :root {
     /* Light Theme - Custom Palette */
     --bg-color: #ffffff;
+    --nav-bg: rgba(255, 255, 255, 0.85);
+    /* Semi-transparent for glass effect */
     /* Light Gray (20%) */
     --card-bg: #ffffff;
     --text-color: #264653;
@@ -21,13 +23,15 @@
     --font-main: 'Plus Jakarta Sans', sans-serif;
 
     /* Spacing */
-    --container-width: 900px;
+    --container-width: 1200px;
     --header-height: 70px;
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
     --bg-color: #121212;
+    --nav-bg: rgba(18, 18, 18, 0.85);
+    /* Semi-transparent for glass effect */
     --card-bg: #1d2b36;
     --text-color: #f1faee;
     --primary-color: #48cae4;
@@ -74,8 +78,8 @@ a:hover {
 
 /* Section Styling */
 section {
-    padding: 60px 0;
-    margin-bottom: 20px;
+    padding: 30px 0;
+    margin-bottom: 0;
 }
 
 h1,
@@ -128,11 +132,17 @@ h3 {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--bg-color);
-    /* Fix: Use var to adapt to theme */
+    /* Glassmorphism Effect */
+    background: var(--nav-bg);
     border-bottom: 1px solid var(--border-color);
-    backdrop-filter: blur(10px);
-    transition: background-color 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+    /* Prevent Layout Shift (CLS) */
+    min-height: var(--header-height);
+    display: flex;
+    align-items: center;
 }
 
 /* Navbar Dropdown */

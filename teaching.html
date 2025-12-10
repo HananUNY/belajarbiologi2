@@ -63,7 +63,7 @@
 </head>
 
 <body>
-    <div id="navbar-placeholder"></div>
+    <header id="navbar-placeholder"></header>
 
     <main class="container">
         <section>
@@ -73,76 +73,86 @@
         </section>
 
         <!-- KELAS X -->
-        <section class="grade-section">
+        <section class="grade-section" data-grade="X">
             <div class="grade-header">
                 <span class="grade-badge">KELAS X</span>
                 <h2 style="font-size: 1.5rem; border: none; padding: 0; margin: 0;">Keanekaragaman Hayati & Ekosistem
                 </h2>
             </div>
-            <ul class="resource-list">
-                <li class="resource-item">
-                    <i class="fas fa-book-open resource-icon"></i>
-                    <div style="flex: 1;">
-                        <h4 style="margin-bottom: 5px;">Modul: Ruang Lingkup Biologi</h4>
-                        <span style="font-size: 0.8rem; color: var(--secondary-color);">Handout Pengantar & Metode
-                            Ilmiah</span>
-                    </div>
-                    <a href="#" class="btn" style="padding: 5px 15px; font-size: 0.9rem;">Unduh PDF</a>
-                </li>
-                <li class="resource-item">
-                    <i class="fas fa-file-alt resource-icon"></i>
-                    <div style="flex: 1;">
-                        <h4 style="margin-bottom: 5px;">LKS: Observasi Kehati</h4>
-                        <span style="font-size: 0.8rem; color: var(--secondary-color);">Lembar Kerja Lapangan untuk
-                            identifikasi tanaman sekitar sekolah.</span>
-                    </div>
-                    <a href="#" class="btn" style="padding: 5px 15px; font-size: 0.9rem;">Unduh PDF</a>
-                </li>
+            <ul class="resource-list" id="list-X">
+                <!-- Injected via JS -->
+                <p>Memuat materi...</p>
             </ul>
         </section>
 
         <!-- KELAS XI -->
-        <section class="grade-section">
+        <section class="grade-section" data-grade="XI">
             <div class="grade-header">
                 <span class="grade-badge" style="background-color: var(--accent-color);">KELAS XI</span>
                 <h2 style="font-size: 1.5rem; border: none; padding: 0; margin: 0;">Sel & Sistem Organ</h2>
             </div>
-            <ul class="resource-list">
-                <li class="resource-item">
-                    <i class="fas fa-video resource-icon"></i>
-                    <div style="flex: 1;">
-                        <h4 style="margin-bottom: 5px;">Studi Kasus: Sistem Pencernaan</h4>
-                        <span style="font-size: 0.8rem; color: var(--secondary-color);">Problem Based Learning tentang
-                            gangguan gizi.</span>
-                    </div>
-                    <a href="#" class="btn" style="padding: 5px 15px; font-size: 0.9rem;">Lihat Materi</a>
-                </li>
+            <ul class="resource-list" id="list-XI">
+                <!-- Injected via JS -->
+                <p>Memuat materi...</p>
             </ul>
         </section>
 
         <!-- KELAS XII -->
-        <section class="grade-section">
+        <section class="grade-section" data-grade="XII">
             <div class="grade-header">
                 <span class="grade-badge" style="background-color: #ff6b6b;">KELAS XII</span>
                 <h2 style="font-size: 1.5rem; border: none; padding: 0; margin: 0;">Metabolisme & Genetika</h2>
             </div>
-            <ul class="resource-list">
-                <li class="resource-item">
-                    <i class="fas fa-brain resource-icon"></i>
-                    <div style="flex: 1;">
-                        <h4 style="margin-bottom: 5px;">Bank Soal: Pola Hereditas</h4>
-                        <span style="font-size: 0.8rem; color: var(--secondary-color);">Kumpulan soal analisis HOTS dan
-                            pembahasannya.</span>
-                    </div>
-                    <a href="#" class="btn" style="padding: 5px 15px; font-size: 0.9rem;">Unduh Soal</a>
-                </li>
+            <ul class="resource-list" id="list-XII">
+                <!-- Injected via JS -->
+                <p>Memuat materi...</p>
             </ul>
         </section>
 
     </main>
 
-    <div id="footer-placeholder"></div>
+    <footer id="footer-placeholder"></footer>
     <script src="js/main.js"></script>
+    <script src="data/teaching-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof teachingMaterials !== 'undefined') {
+                const grades = ['X', 'XI', 'XII'];
+
+                grades.forEach(grade => {
+                    const listContainer = document.getElementById(`list-${grade}`);
+                    // DIRECT ACCESS now, no filter needed
+                    const materials = teachingMaterials[grade] || [];
+
+                    if (listContainer) {
+                        listContainer.innerHTML = '';
+                        if (materials.length > 0) {
+                            materials.forEach(item => {
+                                let iconClass = 'fa-file-alt';
+                                if (item.type === 'video') iconClass = 'fa-video';
+                                if (item.type === 'quiz') iconClass = 'fa-brain';
+                                if (item.type === 'pdf') iconClass = 'fa-book-open';
+
+                                const li = document.createElement('li');
+                                li.className = 'resource-item';
+                                li.innerHTML = `
+                                    <i class="fas ${iconClass} resource-icon"></i>
+                                    <div style="flex: 1;">
+                                        <h4 style="margin-bottom: 5px;">${item.title}</h4>
+                                        <span style="font-size: 0.8rem; color: var(--secondary-color);">${item.description}</span>
+                                    </div>
+                                    <a href="${item.link}" class="btn" style="padding: 5px 15px; font-size: 0.9rem;">Lihat</a>
+                                `;
+                                listContainer.appendChild(li);
+                            });
+                        } else {
+                            listContainer.innerHTML = '<p style="color:var(--secondary-color); font-style:italic;">Belum ada materi.</p>';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <div id="navbar-placeholder"></div>
+    <header id="navbar-placeholder"></header>
 
     <main>
         <!-- Hero Section -->
@@ -92,32 +92,76 @@
         <!-- Latest Updates Section -->
         <section class="container">
             <h2>Materi & Media Terbaru</h2>
-            <div class="grid-3-cols">
-                <div class="update-card">
-                    <span style="font-size: 0.8rem; color: var(--accent-color); font-weight: 700;">MEDIA</span>
-                    <h4 style="margin: 10px 0;">Infografis Sistem Imun</h4>
-                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Visualisasi mekanisme pertahanan tubuh
-                        manusia.</p>
-                </div>
-                <div class="update-card">
-                    <span style="font-size: 0.8rem; color: var(--primary-color); font-weight: 700;">MATERI</span>
-                    <h4 style="margin: 10px 0;">Modul Genetika Kelas XII</h4>
-                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Panduan komprehensif pewarisan sifat
-                        Mendel.</p>
-                </div>
-                <div class="update-card">
-                    <span style="font-size: 0.8rem; color: #ff6b6b; font-weight: 700;">BLOG</span>
-                    <h4 style="margin: 10px 0;">Refleksi PJJ 2024</h4>
-                    <p style="font-size: 0.9rem; color: var(--secondary-color);">Catatan evaluasi pembelajaran jarak
-                        jauh.</p>
-                </div>
+            <div id="latest-updates" class="grid-3-cols">
+                <p>Memuat update terbaru...</p>
             </div>
         </section>
     </main>
 
-    <div id="footer-placeholder"></div>
+    <footer id="footer-placeholder"></footer>
 
     <script src="js/main.js"></script>
+    <script src="data/media-data.js"></script>
+    <script src="data/blog-data.js"></script>
+    <script src="data/teaching-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const updatesContainer = document.getElementById('latest-updates');
+            updatesContainer.innerHTML = '';
+
+            // 1. Get Latest Media
+            if (typeof mediaPosts !== 'undefined' && mediaPosts.length > 0) {
+                // Assuming last added is the newest or sort by ID/added order if reversed
+                const latestMedia = mediaPosts[0]; // Or mediaPosts[mediaPosts.length-1] depending on order. Let's assume index 0 is newest for now or we sort.
+                // Better to strictly sort if there's a date, but let's take the first one from our data file structure as "latest" usually
+
+                const card = createUpdateCard('MEDIA', latestMedia.category, latestMedia.title, latestMedia.description, `media-detail.html?id=${latestMedia.id}`, 'var(--accent-color)');
+                updatesContainer.appendChild(card);
+            }
+
+            // 2. Get Latest Teaching Material
+            if (typeof teachingMaterials !== 'undefined') {
+                // Flatten the object to an array
+                let allTeaching = [];
+                if (teachingMaterials['X']) allTeaching = allTeaching.concat(teachingMaterials['X'].map(i => ({ ...i, grade: 'X' })));
+                if (teachingMaterials['XI']) allTeaching = allTeaching.concat(teachingMaterials['XI'].map(i => ({ ...i, grade: 'XI' })));
+                if (teachingMaterials['XII']) allTeaching = allTeaching.concat(teachingMaterials['XII'].map(i => ({ ...i, grade: 'XII' })));
+
+                if (allTeaching.length > 0) {
+                    // Sort by date descending
+                    const sortedTeaching = allTeaching.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    const latestTeaching = sortedTeaching[0];
+
+                    // Use grade from item or infer ? item has no grade property inside now, so we added it in map above
+                    const card = createUpdateCard('MATERI', `Kelas ${latestTeaching.grade}`, latestTeaching.title, latestTeaching.description, `teaching.html`, 'var(--primary-color)');
+                    updatesContainer.appendChild(card);
+                }
+            }
+
+            // 3. Get Latest Blog
+            if (typeof blogPosts !== 'undefined' && blogPosts.length > 0) {
+                const latestBlog = blogPosts[0]; // Assuming index 0 is newest
+                const card = createUpdateCard('BLOG', latestBlog.category, latestBlog.title, latestBlog.excerpt, `post.html?id=${latestBlog.id}`, '#ff6b6b');
+                updatesContainer.appendChild(card);
+            }
+        });
+
+        function createUpdateCard(type, tag, title, desc, link, color) {
+            const div = document.createElement('div');
+            div.className = 'update-card';
+            div.innerHTML = `
+                <a href="${link}" style="text-decoration:none; color:inherit; display:block; height:100%;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                         <span style="font-size: 0.8rem; color: ${color}; font-weight: 700;">${type}</span>
+                         <span style="font-size: 0.7rem; color: #999; border:1px solid #ddd; padding:2px 6px; border-radius:4px;">${tag}</span>
+                    </div>
+                    <h4 style="margin: 10px 0; font-size:1.1rem;">${title}</h4>
+                    <p style="font-size: 0.9rem; color: var(--secondary-color); line-height:1.5;">${desc}</p>
+                </a>
+            `;
+            return div;
+        }
+    </script>
 </body>
 
 </html>

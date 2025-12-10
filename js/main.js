@@ -14,7 +14,7 @@ function toggleTheme(isChecked) {
 initTheme();
 
 const navbarContent = `
-<nav class="container" style="display: flex; justify-content: space-between; align-items: center; height: var(--header-height);">
+<nav class="container" style="display: flex; justify-content: space-between; align-items: center; height: var(--header-height); gap: 30px;">
     <a href="index.html" style="font-size: 1.5rem; font-weight: 800; color: var(--text-color);">
         Belajar<span style="color: var(--primary-color);">Biologi</span>
     </a>
