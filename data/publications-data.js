@@ -1,12 +1,31 @@
 const publicationsData = {
     books: [
         {
-            title: "Biologi Interaktif SMA Kelas X",
-            description: "Buku pengayaan yang dilengkapi dengan Augmented Reality untuk memvisualisasikan virus dan bakteri.",
+            title: "Guru, Gadget, dan Gejala Aneh di Ruang Kelas: 5 Cerita Nyata yang Tidak Dibahas dalam Webinar Pendidikan",
+            description: "Buku ini adalah kumpulan pengalaman kecil saya sebagai guru muda yang sedang belajar memahami murid, memahami zaman, dan yang paling sulit memahami diri sendiri di tengah ruang kelas yang terus berubah.",
             coverIcon: "fa-book",
-            link: "#",
+            coverImage: "images/book_cover_guru_gadget.jpg",
+            link: "https://play.google.com/store/books/details?id=BMNrEQAAQBAJ",
             action: "Beli Buku",
-            sampleLink: "#"
+            sampleLink: "https://play.google.com/store/books/details?id=BMNrEQAAQBAJ"
+        },
+        {
+            title: "Belenggu Kolonial Dalam Kurikulum Merdeka",
+            description: "Sebuah refleksi kritis yang menelusuri jejak panjang warisan pendidikan kolonial di Indonesia—dari sistem seleksi, standardisasi, hingga kontrol—dan bagaimana pola lama itu masih bersembunyi di balik wajah baru kebijakan pendidikan masa kini.",
+            coverIcon: "fa-book",
+            coverImage: "images/book_cover_belenggu.jpg",
+            link: "https://play.google.com/store/books/details/Hanan_Dimas_Prasetya_Belenggu_Kolonial_dalam_Kurik?id=8qh4EQAAQBAJ",
+            action: "Beli Buku",
+            sampleLink: "https://play.google.com/store/books/details/Hanan_Dimas_Prasetya_Belenggu_Kolonial_dalam_Kurik?id=8qh4EQAAQBAJ"
+        },
+        {
+            title: "Di Tepi Pantai",
+            description: "Buku ini berisi kumpulan puisi dan sajak saya yang saya buat dari tahun 2018 sampai 2023.",
+            coverIcon: "fa-book",
+            coverImage: "images/book_cover_3.jpg",
+            link: "https://play.google.com/store/books/details?id=dIa9EAAAQBAJ",
+            action: "Beli Buku",
+            sampleLink: "https://play.google.com/store/books/details?id=dIa9EAAAQBAJ"
         }
     ],
     journals: [

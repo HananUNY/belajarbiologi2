@@ -36,9 +36,12 @@
         <!-- Books Section -->
         <section style="padding: 20px 0;">
             <h2>Buku Karya Saya</h2>
-            <div id="books-container" style="display: flex; gap: 40px; margin-top: 30px; flex-wrap: wrap;">
+            <div id="books-container"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; margin-top: 30px;">
                 <!-- Injected via JS -->
                 <p>Memuat data buku...</p>
+            </div>
+            <div id="books-pagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
             </div>
         </section>
 
@@ -48,6 +51,8 @@
             <div id="journals-container" style="margin-top: 20px;">
                 <!-- Injected via JS -->
                 <p>Memuat data jurnal...</p>
+            </div>
+            <div id="journals-pagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 30px;">
             </div>
         </section>
 
@@ -59,20 +64,45 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof publicationsData !== 'undefined') {
-                // Render Books
-                const booksContainer = document.getElementById('books-container');
-                if (booksContainer && publicationsData.books) {
+                const ITEMS_PER_PAGE = 4;
+                let currentBookPage = 1;
+                let currentJournalPage = 1;
+
+                // --- Books Rendering ---
+                function renderBooks(page) {
+                    const booksContainer = document.getElementById('books-container');
+                    const paginationContainer = document.getElementById('books-pagination');
+
+                    if (!booksContainer || !publicationsData.books) return;
+
+                    const totalItems = publicationsData.books.length;
+                    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+                    // Validate page
+                    if (page < 1) page = 1;
+                    if (page > totalPages) page = totalPages;
+                    currentBookPage = page;
+
+                    // Slice data
+                    const start = (page - 1) * ITEMS_PER_PAGE;
+                    const end = start + ITEMS_PER_PAGE;
+                    const itemsToShow = publicationsData.books.slice(start, end);
+
+                    // Render Items
                     booksContainer.innerHTML = '';
-                    publicationsData.books.forEach(book => {
+                    itemsToShow.forEach(book => {
                         const article = document.createElement('article');
-                        article.style.cssText = "display: flex; gap: 20px; border: 1px solid var(--border-color); padding: 20px; border-radius: 10px; max-width: 600px; background: var(--card-bg);";
+                        article.style.cssText = "display: flex; gap: 20px; border: 1px solid var(--border-color); padding: 20px; border-radius: 10px; background: var(--card-bg); height: 100%;";
                         article.innerHTML = `
-                            <div style="width: 120px; flex-shrink: 0; background: #eee; height: 180px; display: flex; align-items: center; justify-content: center; color: #aaa;">
-                                <i class="fas ${book.coverIcon || 'fa-book'} fa-2x"></i>
+                            <div style="width: 120px; flex-shrink: 0; background: #eee; height: 180px; display: flex; align-items: center; justify-content: center; color: #aaa; overflow: hidden;">
+                                ${book.coverImage
+                                ? `<img src="${book.coverImage}" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;">`
+                                : `<i class="fas ${book.coverIcon || 'fa-book'} fa-2x"></i>`
+                            }
                             </div>
-                            <div>
+                            <div style="flex: 1; display: flex; flex-direction: column;">
                                 <h3 style="font-size: 1.3rem; margin-bottom: 10px;">${book.title}</h3>
-                                <p style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 15px;">
+                                <p style="font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 15px; flex-grow: 1;">
                                     ${book.description}
                                 </p>
                                 <div style="display: flex; gap: 10px;">
@@ -83,13 +113,31 @@
                         `;
                         booksContainer.appendChild(article);
                     });
+
+                    // Render Pagination
+                    renderPagination(totalItems, ITEMS_PER_PAGE, page, paginationContainer, (newPage) => renderBooks(newPage));
                 }
 
-                // Render Journals
-                const journalsContainer = document.getElementById('journals-container');
-                if (journalsContainer && publicationsData.journals) {
+                // --- Journals Rendering ---
+                function renderJournals(page) {
+                    const journalsContainer = document.getElementById('journals-container');
+                    const paginationContainer = document.getElementById('journals-pagination');
+
+                    if (!journalsContainer || !publicationsData.journals) return;
+
+                    const totalItems = publicationsData.journals.length;
+                    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+                    if (page < 1) page = 1;
+                    if (page > totalPages) page = totalPages;
+                    currentJournalPage = page;
+
+                    const start = (page - 1) * ITEMS_PER_PAGE;
+                    const end = start + ITEMS_PER_PAGE;
+                    const itemsToShow = publicationsData.journals.slice(start, end);
+
                     journalsContainer.innerHTML = '';
-                    publicationsData.journals.forEach(journal => {
+                    itemsToShow.forEach(journal => {
                         const article = document.createElement('article');
                         article.style.marginBottom = "30px";
 
@@ -113,7 +161,47 @@
                         `;
                         journalsContainer.appendChild(article);
                     });
+
+                    renderPagination(totalItems, ITEMS_PER_PAGE, page, paginationContainer, (newPage) => renderJournals(newPage));
                 }
+
+                // --- Generic Pagination Control ---
+                function renderPagination(totalItems, itemsPerPage, currentPage, container, onPageChange) {
+                    container.innerHTML = '';
+                    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                    if (totalPages <= 1) return;
+
+                    // Prev Button
+                    const prevBtn = document.createElement('button');
+                    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                    prevBtn.className = 'pagination-btn'; // We can add styles for this class inline or in CSS
+                    prevBtn.style.cssText = `padding: 8px 12px; border: 1px solid var(--border-color); background: ${currentPage === 1 ? 'var(--light-gray)' : 'var(--card-bg)'}; cursor: ${currentPage === 1 ? 'not-allowed' : 'pointer'}; border-radius: 5px;`;
+                    prevBtn.disabled = currentPage === 1;
+                    prevBtn.onclick = () => onPageChange(currentPage - 1);
+                    container.appendChild(prevBtn);
+
+                    // Page Numbers
+                    for (let i = 1; i <= totalPages; i++) {
+                        const pageBtn = document.createElement('button');
+                        pageBtn.innerText = i;
+                        pageBtn.style.cssText = `padding: 8px 12px; border: 1px solid var(--border-color); background: ${currentPage === i ? 'var(--primary-color)' : 'var(--card-bg)'}; color: ${currentPage === i ? '#fff' : 'var(--text-color)'}; cursor: pointer; border-radius: 5px;`;
+                        pageBtn.onclick = () => onPageChange(i);
+                        container.appendChild(pageBtn);
+                    }
+
+                    // Next Button
+                    const nextBtn = document.createElement('button');
+                    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                    nextBtn.style.cssText = `padding: 8px 12px; border: 1px solid var(--border-color); background: ${currentPage === totalPages ? 'var(--light-gray)' : 'var(--card-bg)'}; cursor: ${currentPage === totalPages ? 'not-allowed' : 'pointer'}; border-radius: 5px;`;
+                    nextBtn.disabled = currentPage === totalPages;
+                    nextBtn.onclick = () => onPageChange(currentPage + 1);
+                    container.appendChild(nextBtn);
+                }
+
+                // Initial Render
+                renderBooks(1);
+                renderJournals(1);
             }
         });
     </script>
