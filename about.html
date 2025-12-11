@@ -44,10 +44,19 @@
 
             <div>
                 <h2>Biografi Profesional</h2>
-                <p style="margin-bottom: 20px;">
-                    [Isi Biografi Anda Di Sini]. Lulusan Pendidikan Biologi dari Universitas Negeri Yogyakarta. Telah
-                    mengajar selama lebih dari 10 tahun di berbagai jenjang pendidikan. Fokus utama saya adalah
-                    pengembangan media pembelajaran interaktif yang dapat meningkatkan motivasi belajar siswa.
+                <p style="margin-bottom: 20px; line-height: 1.8;">
+                    Saya adalah seorang pendidik Biologi yang berdedikasi dan pembelajar sepanjang hayat, berkomitmen
+                    untuk menginspirasi siswa dan memajukan praktik pendidikan. Dengan fondasi yang kuat dalam biologi
+                    (S1 Pendidikan Biologi, UNY) dan pengalaman mengajar di sekolah menengah, saya membawa keahlian
+                    materi pelajaran serta pendekatan yang segar dan inovatif dalam pembelajaran di kelas.
+                </p>
+                <p style="margin-bottom: 20px; line-height: 1.8;">
+                    Saya berkembang di persimpangan antara sains dan kreativitas — aktif berkontribusi dalam penulisan
+                    dan desain publikasi pendidikan (seperti buku <em>Guru, Gadget, dan Gejala Aneh</em> serta
+                    <em>Belenggu Kolonial</em>), serta memimpin upaya dokumentasi keanekaragaman hayati dan fotografi
+                    lapangan di ekosistem lokal. Dengan memadukan pengetahuan biologi yang kuat dengan penceritaan
+                    visual, saya bertujuan untuk menciptakan pengalaman belajar yang menarik dan bermakna yang memicu
+                    rasa ingin tahu serta memperdalam pemahaman siswa.
                 </p>
 
                 <h2 style="margin-top: 40px;">Filosofi Pendidikan</h2>
@@ -61,27 +70,115 @@
                     kemampuan berpikir kritis (HOTS) dan literasi sains.
                 </p>
 
-                <h2 style="margin-top: 40px;">Riwayat Pendidikan & Sertifikasi</h2>
-                <div style="margin-bottom: 20px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <strong>S1 Pendidikan Biologi</strong>
-                        <span style="color: var(--secondary-color);">2010 - 2014</span>
-                    </div>
-                    <div style="color: var(--secondary-color);">Universitas Negeri Yogyakarta</div>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <strong>Sertifikasi Pendidik Profesional</strong>
-                        <span style="color: var(--secondary-color);">2016</span>
-                    </div>
-                    <div style="color: var(--secondary-color);">Kementerian Pendidikan dan Kebudayaan</div>
-                </div>
+                <h2 style="margin-top: 40px;">Riwayat Pendidikan</h2>
+                <div id="education-container"></div>
+
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Lisensi & Sertifikasi</h3>
+                <div id="certifications-container"></div>
+
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Hak Kekayaan Intelektual (HAKI) / Paten</h3>
+                <div id="patents-container"></div>
             </div>
         </section>
     </main>
 
     <footer id="footer-placeholder"></footer>
     <script src="js/main.js"></script>
+    <script src="data/profile-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof profileData === 'undefined') return;
+
+            // Render Education
+            const educationContainer = document.getElementById('education-container');
+            if (educationContainer && profileData.education) {
+                profileData.education.forEach(edu => {
+                    const div = document.createElement('div');
+                    div.style.marginBottom = "20px";
+                    div.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <strong>${edu.institution}</strong>
+                            <span style="color: var(--secondary-color);">${edu.period}</span>
+                        </div>
+                        <div style="color: var(--secondary-color);">${edu.detail}</div>
+                    `;
+                    educationContainer.appendChild(div);
+                });
+            }
+
+            // Generic Render Function with Expand/Collapse
+            function renderListWithToggle(containerId, data, initialLimit) {
+                const container = document.getElementById(containerId);
+                if (!container || !data || data.length === 0) return;
+
+                container.innerHTML = '';
+                const itemsContainer = document.createElement('div');
+                container.appendChild(itemsContainer);
+
+                const renderItems = (limit) => {
+                    itemsContainer.innerHTML = '';
+                    const itemsToShow = limit === -1 ? data : data.slice(0, limit);
+
+                    itemsToShow.forEach(item => {
+                        const div = document.createElement('div');
+                        div.style.marginBottom = "20px";
+
+                        let additionalInfo = '';
+                        if (item.description) {
+                            additionalInfo += `<p style="font-size: 0.9rem; color: var(--secondary-color); margin-top: 5px; line-height: 1.6;">${item.description}</p>`;
+                        }
+
+                        let secondLine = '';
+                        if (item.detail) secondLine += item.detail;
+                        if (item.id) secondLine += (secondLine ? ' ' : '') + `(${item.id})`;
+
+                        let title = item.name || item.title;
+                        let issuer = item.issuer || '';
+
+                        div.innerHTML = `
+                             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <strong>${title}</strong>
+                                <span style="color: var(--secondary-color);">${item.date}</span>
+                            </div>
+                            <div style="color: var(--secondary-color);">
+                                ${issuer} 
+                                ${secondLine ? (issuer ? ' - ' : '') + secondLine : ''}
+                            </div>
+                            ${additionalInfo}
+                        `;
+                        itemsContainer.appendChild(div);
+                    });
+                };
+
+                renderItems(initialLimit);
+
+                if (data.length > initialLimit) {
+                    const toggleBtn = document.createElement('button');
+                    toggleBtn.innerHTML = 'Lihat Lebih Banyak <i class="fas fa-chevron-down"></i>';
+                    toggleBtn.style.cssText = "background: none; border: none; color: var(--primary-color); cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; padding: 0;";
+                    toggleBtn.style.marginTop = "10px"; // Add some spacing
+
+                    let isExpanded = false;
+
+                    toggleBtn.onclick = () => {
+                        isExpanded = !isExpanded;
+                        renderItems(isExpanded ? -1 : initialLimit);
+                        toggleBtn.innerHTML = isExpanded
+                            ? 'Tutup <i class="fas fa-chevron-up"></i>'
+                            : 'Lihat Lebih Banyak <i class="fas fa-chevron-down"></i>';
+                    };
+
+                    container.appendChild(toggleBtn);
+                }
+            }
+
+            // Render Certifications (Limit 2)
+            renderListWithToggle('certifications-container', profileData.certifications, 2);
+
+            // Render Patents (Limit 2)
+            renderListWithToggle('patents-container', profileData.patents, 2);
+        });
+    </script>
 </body>
 
 </html>
