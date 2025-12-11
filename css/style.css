@@ -462,6 +462,8 @@ h3 {
     grid-template-columns: 1fr 2fr;
     gap: 40px;
     align-items: start;
+    padding-top: 0px;
+    /* Reduced padding to move grid up */
     /* Ensure items align to top */
 }
 
@@ -469,6 +471,7 @@ h3 {
     position: -webkit-sticky;
     position: sticky;
     top: 100px;
+    padding-top: 0px;
     /* Adjust based on header height + padding */
 }
 
