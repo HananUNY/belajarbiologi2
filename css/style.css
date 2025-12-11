@@ -452,3 +452,34 @@ h3 {
         /* Stack on mobile */
     }
 }
+
+/* =========================================
+   About Page Specifics 
+   ========================================= */
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: start;
+    /* Ensure items align to top */
+}
+
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+    /* Adjust based on header height + padding */
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .sidebar-sticky {
+        position: static;
+        /* Disable sticky on mobile */
+    }
+}
