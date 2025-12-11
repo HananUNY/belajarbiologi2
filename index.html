@@ -50,11 +50,22 @@
                 <a href="about.html" class="btn">Tentang Saya <i class="fas fa-arrow-right"
                         style="margin-left: 10px;"></i></a>
             </div>
-            <div class="hero-image-wrapper">
+            <div class="hero-image-wrapper" style="position: relative;">
                 <div class="profile-image-container">
                     <!-- Placeholder for Profile Image -->
                     <img src="images/profile_teacher.png" alt="Foto Profil Guru"
                         style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <!-- Name Tag Overlay -->
+                <!-- Moved outside container to overlap border without clipping -->
+                <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); 
+                            background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+                            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.6);
+                            box-shadow: 0 8px 32px rgba(0,0,0,0.1); white-space: nowrap; z-index: 10;">
+                    <h3 style="margin: 0; font-size: 1.2rem; color: #264653;">Hanan Dimas Prasetya</h3>
+                    <div style="font-size: 0.85rem; color: var(--primary-color); font-weight: 600; margin-top: 2px;">
+                        Guru Biologi</div>
                 </div>
             </div>
         </section>
